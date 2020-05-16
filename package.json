@@ -1,0 +1,17 @@
+{
+  "name": "keybinding",
+  "version": "1.0.0-beta",
+  "description": "A library to handle hotkeys in browser",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "git@github.com:codertx/keybinding.git",
+  "author": "codert <codert.sn@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -Rf dist",
+    "build": "yarn run clean && tsc"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.2"
+  }
+}
