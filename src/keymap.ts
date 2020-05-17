@@ -100,11 +100,11 @@ export function isModifierPressed(key: string, e: KeyboardEvent) {
 }
 
 /**
- * Restore shifted key to non shifted
+ * Restore shifted key to non shifted. Convert key to lower-case if it is a single character.
  * @param key key to normalize. Normally this parameter should come from `KeyboardEvent.key`
  */
-export function restoreShiftKey(key: string) {
-    return shiftedKeys[key] || key;
+export function normalize(key: string) {
+    return shiftedKeys[key] || (key.length === 1 ? key.toLocaleLowerCase() : key);
 }
 
 /**

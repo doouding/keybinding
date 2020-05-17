@@ -2,16 +2,27 @@
   "name": "keybinding",
   "version": "1.0.0-beta",
   "description": "A library to handle hotkeys in browser",
-  "main": "dist/index.js",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:codertx/keybinding.git",
   "author": "codert <codert.sn@gmail.com>",
   "license": "MIT",
   "scripts": {
     "clean": "rm -Rf dist",
-    "build": "yarn run clean && tsc"
+    "build": "yarn run clean && rollup --config rollup.config.js && tsc --emitDeclarationOnly",
+    "dev": "env NODE_ENV=development rollup --config rollup.config.js --watch"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-typescript": "^7.9.0",
+    "@rollup/plugin-babel": "^5.0.0",
+    "@rollup/plugin-node-resolve": "^7.1.3",
+    "rollup": "^2.10.2",
+    "rollup-plugin-serve": "^1.0.1",
+    "rollup-plugin-terser": "^5.3.0",
     "typescript": "^3.9.2"
   }
 }
