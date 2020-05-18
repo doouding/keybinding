@@ -86,7 +86,7 @@ keybinding.off(key: string, handler: (keybind: Keybinding) => any, scope?: strin
 keybind.off('ctrl + a', aBoundHandler);
 ```
 
-> Scopes are used to control whether handler should response when the bound hotkey pressed. See more detail in `disable`/`enable` method.
+> Scopes are used to control whether handler should be called when the bound hotkey was pressed. See more detail in `disable`/`enable` method.
 
 **disable/enable**
 
