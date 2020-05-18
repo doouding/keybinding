@@ -211,37 +211,20 @@ export default class Keybinding {
      * Disable given scope's registered hotkeys
      * @param scope scope to disable, use 'all' by default
      */
-    disable(scopes: string | string[] = 'all') {
-        if(Array.isArray(scopes)) {
-            scopes.forEach((scope) => {
-                this.disabledScope[scope] = true;
-            });
-        }
-        else {
-            this.disabledScope[scopes] = true;
-        }
+    disable(scopes: string = 'all') {
+        this.disabledScope[scopes] = true;
     }
 
     /**
      * Enable given scope's hotkeys
      * @param scopes Scope to enable, use 'all' by default
      */
-    enable(scopes: string | string[] = 'all') {
+    enable(scopes: string = 'all') {
         if(scopes === 'all') {
             this.enableAllScope();
         }
-        else if(typeof scopes === 'string') {
-            delete this.disabledScope[scopes];
-        }
         else {
-            for(let scope of scopes) {
-                if(scope === 'all') {
-                    this.enableAllScope();
-                    return;
-                }
-
-                delete this.disabledScope[scope];
-            }
+            delete this.disabledScope[scopes];
         }
     }
 }
