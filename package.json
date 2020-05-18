@@ -11,7 +11,8 @@
   "scripts": {
     "clean": "rm -Rf dist",
     "build": "yarn run clean && rollup --config rollup.config.js && tsc --emitDeclarationOnly",
-    "dev": "env NODE_ENV=development rollup --config rollup.config.js --watch"
+    "dev": "env NODE_ENV=development rollup --config rollup.config.js --watch",
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -20,6 +21,8 @@
     "@babel/preset-typescript": "^7.9.0",
     "@rollup/plugin-babel": "^5.0.0",
     "@rollup/plugin-node-resolve": "^7.1.3",
+    "jest": "^26.0.1",
+    "puppeteer": "^3.0.4",
     "rollup": "^2.10.2",
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-terser": "^5.3.0",
