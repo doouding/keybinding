@@ -153,12 +153,10 @@ export default class Keybinding {
     private onHotKey(targetHotkeys: string, handler: IHotkeyHandler, scope: string) {
         const handlers = this.handlers[targetHotkeys] = this.handlers[targetHotkeys] || [];
 
-        if(this.findCallback(handlers, handler, scope) === -1) {
-            handlers.push({
-                handler,
-                scope
-            });
-        }
+        handlers.push({
+            handler,
+            scope
+        });
     }
 
     /**
