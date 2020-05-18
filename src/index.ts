@@ -7,15 +7,21 @@ const dispatches: ((e: KeyboardEvent) => any)[] = [];
 const keyDownDispatcher = (e: KeyboardEvent) => {
     const key = normalize(e.key);
 
-    if(!isSupportedKey(key) || pressedKeyList.indexOf(key) !== -1) {
+    if(!isSupportedKey(key)) {
         return;
     }
 
-    pressedKeyList.push(key);
-    pressedKeyList.sort();
-    updatePressedKeyStr();
+    const notPressed = pressedKeyList.indexOf(key) === -1;
 
-    dispatch(e);
+    if(notPressed) {
+        pressedKeyList.push(key);
+        pressedKeyList.sort();
+        updatePressedKeyStr();
+    }
+
+    if(notPressed || !isModifier(key)) {
+        dispatch(e);
+    }
 }
 
 const keyUpDispatcher = (e: KeyboardEvent) => {
