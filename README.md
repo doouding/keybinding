@@ -1,6 +1,7 @@
 # Keybinding
 ![npm](https://img.shields.io/npm/v/keybinding)
 ![npm](https://img.shields.io/badge/no-dependencies-green)
+![npm](https://img.shields.io/badge/coverage-88%25-green)
 
 A typescript library to handle hotkeys in browser.
 
