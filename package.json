@@ -12,16 +12,17 @@
     "clean": "rm -Rf dist",
     "build": "yarn run clean && rollup --config rollup.config.js && tsc --emitDeclarationOnly",
     "dev": "env NODE_ENV=development rollup --config rollup.config.js --watch",
-    "test": "jest"
+    "test": "jest",
+    "report": "nyc report --reporter=html"
   },
   "files": [
-      "dist",
-      "README.md"
+    "dist",
+    "README.md"
   ],
   "keywords": [
-      "hotkey",
-      "hotkeys",
-      "shortcuts"
+    "hotkey",
+    "hotkeys",
+    "shortcuts"
   ],
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -31,7 +32,9 @@
     "@rollup/plugin-babel": "^5.0.0",
     "@rollup/plugin-node-resolve": "^7.1.3",
     "jest": "^26.0.1",
+    "nyc": "^15.0.1",
     "puppeteer": "^3.0.4",
+    "puppeteer-to-istanbul": "^1.3.1",
     "rollup": "^2.10.2",
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-terser": "^5.3.0",

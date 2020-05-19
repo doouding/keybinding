@@ -1,3 +1,4 @@
+const pti = require('puppeteer-to-istanbul');
 const puppeteer = require('puppeteer');
 const path = require('path');
 const testPage = path.resolve(__dirname, './test.html');
@@ -11,6 +12,7 @@ beforeAll(async () => {
     browser = await puppeteer.launch();
     page = await browser.newPage();
 
+    await page.coverage.startJSCoverage();
     await page.goto(`file://${testPage}`);
     await page.evaluate(() => {
         window.handlerHelper = (handlerSymbol) => {
@@ -36,6 +38,9 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
+    const jsCoverage = await page.coverage.stopJSCoverage();
+
+    pti.write([...jsCoverage]);
     await browser.close();
 });
 
