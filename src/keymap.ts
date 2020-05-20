@@ -18,6 +18,7 @@ const handyKeyMap: {
     'left': 'ArrowLeft',
     'right': 'ArrowRight',
     'backspace': 'Backspace',
+    'delete': 'Delete',
     'esc': 'Escape'
 };
 
