@@ -1,37 +1,67 @@
 import { mapToStandardKey, normalize, isSupportedKey, isModifierPressed, isModifier } from './keymap';
 
 let pressedKeyStr = '';
-const pressedKeyList: string[] = [];
+let pressedKeyList: string[] = [];
+let lastPressedKey: string = '';
+let lastClear: number = 0;
+
 const dispatches: ((e: KeyboardEvent) => any)[] = [];
 
 const keyDownDispatcher = (e: KeyboardEvent) => {
     const key = normalize(e.key);
+    const isModiferKey = isModifier(key);
+    let keyAlreadyPressed = pressedKeyList.indexOf(key) !== -1;
 
     if(!isSupportedKey(key)) {
         return;
     }
 
-    const notPressed = pressedKeyList.indexOf(key) === -1;
+    if(isModiferKey){
+        if(!keyAlreadyPressed) {
+            pressedKeyList.push(key);
+        }
+    }
+    else {
+        if(lastPressedKey) {
+            clearTimeout(lastClear);
+            pressedKeyList.splice(pressedKeyList.indexOf(lastPressedKey), 1);
+        }
 
-    if(notPressed) {
         pressedKeyList.push(key);
-        pressedKeyList.sort();
-        updatePressedKeyStr();
+
+        lastPressedKey = key;
+        lastClear = window.setTimeout(() => {
+            pressedKeyList.splice(pressedKeyList.indexOf(key), 1);
+            lastPressedKey = '';
+            lastClear = 0;
+        }, 60);
     }
 
-    if(notPressed || !isModifier(key)) {
-        dispatch(e);
+    pressedKeyList.sort();
+    updatePressedKeyStr();
+
+    if(isModiferKey && keyAlreadyPressed) {
+        return;
     }
+
+    dispatch(e);
 }
 
 const keyUpDispatcher = (e: KeyboardEvent) => {
     const key = normalize(e.key);
+    const isModiferKey = isModifier(key);
 
     if(
         !isSupportedKey(key) ||
-        (isModifier(key) && isModifierPressed(key, e))
+        (isModiferKey && isModifierPressed(key, e))
     ) {
         return;
+    }
+
+    if(!isModiferKey && lastPressedKey === key) {
+        clearTimeout(lastClear);
+        lastClear = 0;
+        lastPressedKey = '';
     }
 
     pressedKeyList.splice(pressedKeyList.indexOf(key), 1);
