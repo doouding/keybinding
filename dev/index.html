@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="index.umd.js"></script>
+    <script>
+        const kb = new Keybinding();
+
+        kb.on('shift + a', () => {
+            console.log('shift + a');
+        });
+        kb.on('ctrl + a', () => {
+            console.log('ctrl + a');
+        });
+        kb.on('shift + ctrl + a', () => {
+            console.log('shift + ctrl + a');
+        });
+    </script>
     <title>Keybinding</title>
 </head>
 <body>
