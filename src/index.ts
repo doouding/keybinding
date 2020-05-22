@@ -34,6 +34,7 @@ const keyDownDispatcher = (e: KeyboardEvent) => {
             pressedKeyList.splice(pressedKeyList.indexOf(key), 1);
             lastPressedKey = '';
             lastClear = 0;
+            updatePressedKeyStr();
         }, 60);
     }
 
@@ -64,10 +65,13 @@ const keyUpDispatcher = (e: KeyboardEvent) => {
         lastPressedKey = '';
     }
 
-    pressedKeyList.splice(pressedKeyList.indexOf(key), 1);
-    pressedKeyList.sort();
+    const keyIdx = pressedKeyList.indexOf(key);
 
-    updatePressedKeyStr();
+    if(keyIdx >= 0) {
+        pressedKeyList.splice(pressedKeyList.indexOf(key), 1);
+        pressedKeyList.sort();
+        updatePressedKeyStr();
+    }
 }
 
 const updatePressedKeyStr = () => {
