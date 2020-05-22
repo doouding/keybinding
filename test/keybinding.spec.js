@@ -8,6 +8,12 @@ let page
 let browser
 let getStatus;
 
+function sleep(time) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, time);
+    });
+}
+
 beforeAll(async () => {
     browser = await puppeteer.launch();
     page = await browser.newPage();
@@ -45,16 +51,21 @@ afterAll(async () => {
 });
 
 describe('keybinding basic functionality', () => {
-    beforeAll(async () => {
+    beforeEach(async () => {
         await page.evaluate(() => {
             window.keybind = new Keybinding();
         });
     });
 
-    afterAll(async () => {
+    afterEach(async () => {
         await page.evaluate(() => {
             window.keybind.destroy();
             delete window.keybind;
+            clearHelper('case1');
+            clearHelper('case2');
+            clearHelper('case3');
+            clearHelper('case4');
+            clearHelper('case5'); 
         });
     });
 
@@ -110,6 +121,40 @@ describe('keybinding basic functionality', () => {
         await page.evaluate(() => {
             clearHelper('case1');
         });
+    });
+
+    test('delay keyup event should work as expected', async() => {
+        await page.evaluate(() => {
+            keybind.on('shift + a', handlerHelper('case1'));
+        });
+        await page.keyboard.down('ShiftLeft');
+        await page.keyboard.down('a');
+        await sleep(100);
+        await page.keyboard.up('a');
+        expect(await page.evaluate(getStatus, 'case1')).toBe(1);
+        await page.keyboard.down('a');
+        await page.keyboard.up('a');
+        expect(await page.evaluate(getStatus, 'case1')).toBe(2);
+
+        await page.keyboard.up('ShiftLeft');
+    });
+
+    test('drop keyup event should work as expected', async () => {
+        await page.evaluate(() => {
+            keybind.on('shift + a', handlerHelper('case1'));
+        });
+        await page.keyboard.down('ShiftLeft');
+        await page.keyboard.down('a');
+        await sleep(100);
+        expect(await page.evaluate(getStatus, 'case1')).toBe(1);
+        await page.keyboard.down('a');
+        await sleep(100);
+        expect(await page.evaluate(getStatus, 'case1')).toBe(2);
+        await page.keyboard.down('a');
+        await sleep(100);
+        expect(await page.evaluate(getStatus, 'case1')).toBe(3);
+
+        await page.keyboard.up('ShiftLeft');
     });
 
     test('shift modifier', async () => {
