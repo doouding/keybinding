@@ -2,6 +2,7 @@
 ![npm](https://img.shields.io/npm/v/keybinding)
 ![npm](https://img.shields.io/badge/no-dependencies-green)
 ![npm](https://img.shields.io/badge/coverage-88%25-green)
+![build-and-test](https://github.com/codertx/keybinding/workflows/build-and-test/badge.svg?branch=master&event=push)
 
 A typescript library to handle hotkeys in browser.
 
