@@ -1,3 +1,6 @@
+
+> # ⚠️ This project is no longer being maintained.
+
 # Keybinding
 ![npm](https://img.shields.io/npm/v/keybinding)
 ![npm](https://img.shields.io/badge/no-dependencies-green)
